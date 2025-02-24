@@ -10,7 +10,7 @@ A C# console application for managing files on OneDrive using Microsoft Graph AP
 
 ## Prerequisites
 ### Before running the application, ensure you have the following:
-A Microsoft account (personal or organizational)
-Microsoft Graph API app registration
-.NET 6.0 or higher installed
-Visual Studio or your preferred IDE
+#### A Microsoft account (personal or organizational)
+#### Microsoft Graph API app registration
+#### .NET 8.0 or higher installed
+#### Visual Studio or your preferred IDE
