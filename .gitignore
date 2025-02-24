@@ -1,4 +1,4 @@
 .env
 .vs
-bin/
-obj/
+bin
+obj
