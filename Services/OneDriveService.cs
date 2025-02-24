@@ -81,38 +81,70 @@ namespace OneDriveFileManagement.Services
         #region Private Methods
         private async Task<string> GetDriveIdAsync()
         {
-            var drives = await graphClient.Me.Drives.GetAsync();
-            return drives.Value.First().Id.ToString();
+            try
+            {
+                var drives = await graphClient.Me.Drives.GetAsync();
+                return drives.Value.First().Id.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting drive ID: {ex.Message}");
+                return null;
+            }
         }
 
         private async Task<string> GetFolderIdAsync(string driveId, string folderName)
         {
-            var folders = await graphClient.Drives[driveId].Items["root"].Children.GetAsync();
-            var folder = folders.Value.FirstOrDefault(x => x.Name == folderName);
-            return folder?.Id;
+            try
+            {
+                var folders = await graphClient.Drives[driveId].Items["root"].Children.GetAsync();
+                var folder = folders.Value.FirstOrDefault(x => x.Name == folderName);
+                return folder?.Id;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting folder ID for '{folderName}': {ex.Message}");
+                return null;
+            }
         }
 
         private async Task<string> CreateFolderAsync(string driveId, string folderName)
         {
-            var driveItem = new DriveItem
+            try
             {
-                Name = folderName,
-                Folder = new Folder(),
-            };
+                var driveItem = new DriveItem
+                {
+                    Name = folderName,
+                    Folder = new Folder(),
+                };
 
-            var addFolder = await graphClient.Drives[driveId].Items["root"].Children.PostAsync(driveItem);
-            return addFolder.Id;
+                var addFolder = await graphClient.Drives[driveId].Items["root"].Children.PostAsync(driveItem);
+                return addFolder.Id;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating folder '{folderName}': {ex.Message}");
+                return null;
+            }
         }
 
         private async Task UploadFileToFolderAsync(string driveId, string folderId, string filePath)
         {
-            using (var fileStream = new FileStream(filePath, FileMode.Open))
+            try
             {
-                var uploadedFile = graphClient.Drives[driveId].Items[folderId].ItemWithPath(Path.GetFileName(filePath)).Content;
-                await uploadedFile.PutAsync(fileStream);
+                using (var fileStream = new FileStream(filePath, FileMode.Open))
+                {
+                    var uploadedFile = graphClient.Drives[driveId].Items[folderId].ItemWithPath(Path.GetFileName(filePath)).Content;
+                    await uploadedFile.PutAsync(fileStream);
+                }
+                Console.WriteLine($"File '{filePath}' uploaded successfully.");
             }
-            Console.WriteLine($"File {filePath} uploaded successfully.");
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error uploading file '{filePath}': {ex.Message}");
+            }
         }
+
         #endregion
     }
 }
