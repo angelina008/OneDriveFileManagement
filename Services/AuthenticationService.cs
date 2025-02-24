@@ -4,14 +4,12 @@ using Microsoft.Identity.Client;
 public class AuthenticationService
 {
     private readonly string clientId;
-    private readonly string clientSecret;
     private IPublicClientApplication publicClientApp;
 
     public AuthenticationService()
     {
         DotEnv.Load();
         clientId = Environment.GetEnvironmentVariable("CLIENT_ID");
-        clientSecret = Environment.GetEnvironmentVariable("CLIENT_SECRET");
 
         // Initialize PublicClientApplication
         publicClientApp = PublicClientApplicationBuilder.Create(clientId)
