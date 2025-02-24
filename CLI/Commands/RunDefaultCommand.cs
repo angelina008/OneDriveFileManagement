@@ -1,11 +1,6 @@
 ﻿using OneDriveFileManagement.CLI.Interfaces;
 using OneDriveFileManagement.Services;
 using OneDriveFileManagement.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OneDriveFileManagement.CLI.Commands
 {

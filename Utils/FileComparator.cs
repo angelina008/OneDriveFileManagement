@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 
 namespace OneDriveFileManagement.Utils
-{ 
+{
     public class FileComparator
     {
         public FileComparator() { }

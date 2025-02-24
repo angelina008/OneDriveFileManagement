@@ -22,7 +22,7 @@ namespace OneDriveFileManagement.CLI.Commands
 
             Console.WriteLine("Files are being compared...");
             await _fileComparator.CompareFilesAsync(originalFile, downloadedFile);
-            
+
         }
     }
 }
