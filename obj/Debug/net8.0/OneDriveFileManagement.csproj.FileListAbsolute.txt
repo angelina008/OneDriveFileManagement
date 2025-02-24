@@ -28,7 +28,6 @@ C:\Projects\OneDriveFileManagement\obj\Debug\net8.0\OneDriveFileManagement.pdb
 C:\Projects\OneDriveFileManagement\obj\Debug\net8.0\OneDriveFileManagement.genruntimeconfig.cache
 C:\Projects\OneDriveFileManagement\obj\Debug\net8.0\ref\OneDriveFileManagement.dll
 C:\Projects\OneDriveFileManagement\bin\Debug\net8.0\.env
-C:\Projects\OneDriveFileManagement\bin\Debug\net8.0\Text.txt
 C:\Projects\OneDriveFileManagement\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
 C:\Projects\OneDriveFileManagement\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Projects\OneDriveFileManagement\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
@@ -43,3 +42,5 @@ C:\Projects\OneDriveFileManagement\bin\Debug\net8.0\Microsoft.Kiota.Serializatio
 C:\Projects\OneDriveFileManagement\bin\Debug\net8.0\Microsoft.Kiota.Serialization.Text.dll
 C:\Projects\OneDriveFileManagement\bin\Debug\net8.0\Std.UriTemplate.dll
 C:\Projects\OneDriveFileManagement\bin\Debug\net8.0\System.ClientModel.dll
+C:\Projects\OneDriveFileManagement\obj\Debug\net8.0\OneDriveFileManagement.sourcelink.json
+C:\Projects\OneDriveFileManagement\bin\Debug\net8.0\Text.txt

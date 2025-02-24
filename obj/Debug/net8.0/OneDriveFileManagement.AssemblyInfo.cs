@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OneDriveFileManagement")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d13bfe604d096e04ee5fb8a2d3dd64e2935d3f9c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85ebcf37e4d3a3cfbe2f5c46ccf03fcc9d7a37a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("OneDriveFileManagement")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OneDriveFileManagement")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

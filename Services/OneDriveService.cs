@@ -3,7 +3,7 @@ using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Graph.Models;
 using Microsoft.Graph.Models.Security;
 
-namespace OneDriveFileManagement
+namespace OneDriveFileManagement.Services
 {
     public class OneDriveService
     {
@@ -24,7 +24,7 @@ namespace OneDriveFileManagement
         /// <param name="folderName">Simple string</param>
         /// <param name="fileRelativePath">NameOfFile.fileExtension (e.g. text.txt) </param>
         /// <returns></returns>
-        public async Task UploadFile(string folderName, string fileRelativePath)
+        public async Task UploadFileAsync(string folderName, string fileRelativePath)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace OneDriveFileManagement
         /// </summary>
         /// <param name="fileName">NameOfFile.fileExtension (e.g. text.txt)</param>
         /// <param name="folderName">Simple string, it's expected to be valid, existing Name</param>
-        /// <param name="downloadPath">relative path to local folder </param>
+        /// <param name="downloadPath">relative path to local folder (Name of the folder)</param>
         /// <returns></returns>
         public async Task DownloadFileAsync(string fileName, string folderName, string downloadPath)
         {

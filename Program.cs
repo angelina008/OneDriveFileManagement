@@ -1,20 +1,16 @@
-﻿using Azure.Core;
-using dotenv.net;
-using Microsoft.Identity.Client;
+﻿using OneDriveFileManagement.CLI;
+using OneDriveFileManagement.Services;
 
 namespace OneDriveFileManagement
 {
 
-    class Program 
+    class Program
     {
         static async Task Main(string[] args)
         {
-            var authenticationService = new AuthenticationService();
-            var oneDriveService = new OneDriveService(authenticationService);
-            var fileComparator = new FileComparator();
-            await oneDriveService.UploadFile("NewFolder", "Text.txt");
-            await oneDriveService.DownloadFileAsync("Text.txt", "NewFolder", "DownloadFiles");
-            await fileComparator.CompareFilesAsync("Text.txt", "Text.txt");
+            var oneDriveService = new OneDriveService(new AuthenticationService());
+            var cli = new SimpleCLI(oneDriveService);
+            await cli.RunAsync();
         }
     }
 }

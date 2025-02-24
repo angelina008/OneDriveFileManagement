@@ -1,6 +1,6 @@
 ﻿using Microsoft.Kiota.Abstractions.Authentication;
 
-namespace OneDriveFileManagement
+namespace OneDriveFileManagement.Services
 {
     public class AccessTokenProvider : IAccessTokenProvider
     {

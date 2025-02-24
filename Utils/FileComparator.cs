@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace OneDriveFileManagement
+namespace OneDriveFileManagement.Utils
 { 
     public class FileComparator
     {
@@ -24,7 +24,6 @@ namespace OneDriveFileManagement
 
         private static async Task<string> ComputeFileHashAsync(string filePath)
         {
-            filePath = Path.Combine(Directory.GetCurrentDirectory(), filePath);
             using (var sha256 = SHA256.Create())
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
