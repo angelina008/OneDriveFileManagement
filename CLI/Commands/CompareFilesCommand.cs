@@ -5,9 +5,12 @@ namespace OneDriveFileManagement.CLI.Commands
 {
     public class CompareFilesCommand : ICommand
     {
-        private readonly FileComparator _fileComparator = new FileComparator();
+        private readonly FileComparator _fileComparator;
 
-        public CompareFilesCommand() { }
+        public CompareFilesCommand(FileComparator fileComparator) 
+        {
+            _fileComparator = fileComparator;
+        }
 
         public async Task ExecuteAsync(string[] args)
         {

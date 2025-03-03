@@ -6,13 +6,14 @@ namespace OneDriveFileManagement.CLI.Commands
 {
     class RunDefaultCommand : ICommand
     {
-        private readonly FileComparator _fileComparator = new FileComparator();
+        private readonly FileComparator _fileComparator;
 
         private readonly OneDriveService _oneDriveService;
 
-        public RunDefaultCommand(OneDriveService oneDriveService)
+        public RunDefaultCommand(OneDriveService oneDriveService, FileComparator fileComparator)
         {
             _oneDriveService = oneDriveService;
+            _fileComparator = fileComparator;
         }
 
         public async Task ExecuteAsync(string[] args)

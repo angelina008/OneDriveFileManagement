@@ -1,5 +1,6 @@
 ﻿using OneDriveFileManagement.CLI.Interfaces;
 using OneDriveFileManagement.Services;
+using OneDriveFileManagement.Utils;
 
 namespace OneDriveFileManagement.CLI
 {
@@ -7,9 +8,9 @@ namespace OneDriveFileManagement.CLI
     {
         private readonly CommandFactory _commandFactory;
 
-        public SimpleCLI(OneDriveService oneDriveService)
+        public SimpleCLI(OneDriveService oneDriveService, FileComparator fileComparator)
         {
-            _commandFactory = new CommandFactory(oneDriveService);
+            _commandFactory = new CommandFactory(oneDriveService, fileComparator);
         }
 
         public async Task RunAsync()

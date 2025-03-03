@@ -8,40 +8,71 @@ public class AuthenticationService
 
     public AuthenticationService()
     {
-        DotEnv.Load();
-        clientId = Environment.GetEnvironmentVariable("CLIENT_ID");
+        try
+        {
+            DotEnv.Load();
+            clientId = Environment.GetEnvironmentVariable("CLIENT_ID");
 
-        // Initialize PublicClientApplication
-        publicClientApp = PublicClientApplicationBuilder.Create(clientId)
-            .WithAuthority(AzureCloudInstance.AzurePublic, "common") // Use /common endpoint
-            .WithRedirectUri("http://localhost") // Redirect URI for interactive login
-            .Build();
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new Exception("CLIENT_ID is missing from environment variables.");
+            }
+
+            publicClientApp = PublicClientApplicationBuilder.Create(clientId)
+                .WithAuthority(AzureCloudInstance.AzurePublic, "common") // Use /common endpoint
+                .WithRedirectUri("http://localhost") // Redirect URI for interactive login
+                .Build();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error initializing AuthenticationService: {ex.Message}");
+            throw;
+        }
     }
 
-    // App-only authentication using /common (for personal accounts as well)
     public async Task<string> GetAccessTokenAsync()
     {
-        string[] scopes = new[] { "User.Read", "Files.ReadWrite", "Files.Read", "Files.Read.All", "Files.ReadWrite.All" }; // Adjust scopes as needed
+        string[] scopes = new[] { "User.Read", "Files.ReadWrite", "Files.Read", "Files.Read.All", "Files.ReadWrite.All" };
 
-        var accounts = await publicClientApp.GetAccountsAsync();
-        var firstAccount = accounts.FirstOrDefault();
-
-        AuthenticationResult result;
+        AuthenticationResult result = null;
 
         try
         {
-            // Try to get the token silently
-            result = await publicClientApp.AcquireTokenSilent(scopes, firstAccount)
-                                          .ExecuteAsync();
+            var accounts = await publicClientApp.GetAccountsAsync();
+            var firstAccount = accounts.FirstOrDefault();
+
+            try
+            {
+                // Try to get the token silently
+                result = await publicClientApp.AcquireTokenSilent(scopes, firstAccount)
+                                              .ExecuteAsync();
+            }
+            catch (MsalUiRequiredException)
+            {
+                Console.WriteLine("Silent authentication failed. Switching to interactive login.");
+
+                // If silent acquisition fails, trigger an interactive login
+                result = await publicClientApp.AcquireTokenInteractive(scopes)
+                                              .WithPrompt(Prompt.SelectAccount) // Force account selection
+                                              .ExecuteAsync();
+            }
         }
-        catch (MsalUiRequiredException)
+        catch (MsalServiceException msalEx)
         {
-            // If silent acquisition fails, trigger an interactive login
-            result = await publicClientApp.AcquireTokenInteractive(scopes)
-                                          .WithPrompt(Prompt.SelectAccount) // Force account selection
-                                          .ExecuteAsync();
+            // MSAL-specific service errors (e.g., network issues, invalid configuration)
+            Console.WriteLine($"MSAL Service Exception: {msalEx.Message}");
+        }
+        catch (MsalClientException msalClientEx)
+        {
+            // MSAL client-side issues (e.g., invalid request, authentication canceled)
+            Console.WriteLine($"MSAL Client Exception: {msalClientEx.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Catch any unexpected exceptions
+            Console.WriteLine($"Unexpected error in GetAccessTokenAsync: {ex.Message}");
         }
 
-        return result.AccessToken;
+        return result?.AccessToken ?? string.Empty;
     }
 }
