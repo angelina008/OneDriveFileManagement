@@ -18,7 +18,7 @@ namespace OneDriveFileManagement.CLI.Commands
 
         public async Task ExecuteAsync(string[] args)
         {
-            Console.WriteLine("Default values are being selected for uplaod/download of file...");
+            Console.WriteLine("Default values are being selected for upload/download of file...");
             await _oneDriveService.UploadFileAsync("NewFolder", "Text.txt");
             await _oneDriveService.DownloadFileAsync("Text.txt", "NewFolder", "DownloadFiles");
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Text.txt");
